@@ -1,0 +1,27 @@
+﻿@model CloudBlog.Lib.MvcWebUI.Models.ArticleCategoryTagViewModel
+
+@{
+    ViewData["Title"] = "ArticleDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<article class="blog-post px-3 py-5 p-md-5">
+
+    <div class="container">
+
+        <img src="@Model.Article.ArticleAndCategory.Thumbnail"/>
+
+        <header class="blog-post-header">
+            <h2 class="title mb-2">@Model.Article.ArticleAndCategory.ArticleTitle</h2>
+        </header>
+
+        <div class="blog-post-body">
+            @Html.Raw(Model.Article.ArticleAndCategory.ArticleContent)
+        </div>
+
+        @foreach (var item in Model.Article.Tags)
+        {
+            <button class="btn btn-outline-primary">@item.TagName</button>
+        }
+    </div>
+</article>

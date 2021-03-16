@@ -1,0 +1,71 @@
+﻿@model List<CloudBlog.Lib.Entities.ComplexTypes.ArticleCategoryComplexData>
+@{
+    ViewData["Title"] = "ListArticles";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Views</th>
+            <th scope="col">Category</th>
+            <th scope="col">Publish Date</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.ArticleTitle</td>
+                <td>@item.Views</td>
+                <td>@item.CategoryName</td>
+                <td>@item.PublishDate</td>
+                <td><a class="btn btn-danger text-white" id="@item.Id">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section ArticleScripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".table tbody").on("click", ".btn-danger", function (e) {
+                var id = this.id;
+                var row = $(this).parent().parent();
+
+                swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this record!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                    type: "GET",
+                                    url: "/Admin/DeleteArticle?articleId=" + id,
+                                    dataType: "JSON",
+                                    success: function (data) {
+                                        swal("Record has been deleted!", {
+                                            icon: "success",
+                                        });
+                                        row.fadeOut(1000, function () {
+
+                                        });
+                                    }
+                                });
+                        }
+                        else {
+                            swal("Your record is safe!");
+                        }
+                    });
+
+            });
+        });
+    </script>
+}

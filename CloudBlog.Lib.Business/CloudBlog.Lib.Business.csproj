@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CloudBlog.Lib.DataAccess\CloudBlog.Lib.DataAccess.csproj" />
+    <ProjectReference Include="..\CloudBlog.Lib.Entities\CloudBlog.Lib.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

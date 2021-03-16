@@ -1,0 +1,53 @@
+﻿@model CloudBlog.Lib.MvcWebUI.Models.ArticleAddViewModel
+@{
+    ViewData["Title"] = "Add Article";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    form {
+        padding-top: 30px;
+    }
+</style>
+
+<div class="container">
+    @if(ViewData["Message"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewData["Message"]
+        </div>
+    }
+<form asp-controller="Admin" asp-action="AddArticle">
+    <div class="form-group">
+        <label asp-for="@Model.ArticleTitle"></label>
+        <input asp-for="@Model.ArticleTitle" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Thumbnail"></label>
+        <input asp-for="@Model.Thumbnail" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description"></label>
+        <textarea asp-for="@Model.Description" type="text" class="form-control"></textarea>
+    </div>
+    <div>
+        <label>Category</label>
+        <select class="form-control" asp-items="@Model.Categories" asp-for="@Model.CategoryId">
+            <option disabled selected value="-1">Select</option>
+        </select>
+    </div>
+    <br />
+    <label asp-for="@Model.ArticleContent"></label>
+    <textarea asp-for="@Model.ArticleContent" id="summernote"></textarea>
+    <br />
+    <button type="submit" class="btn btn-primary btn-block">Add</button>
+</form>
+</div>
+
+<script>
+    $('#summernote').summernote({
+        tabsize: 2,
+        height: 300
+    });
+</script>
+
